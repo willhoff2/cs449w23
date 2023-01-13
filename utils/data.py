@@ -7,6 +7,23 @@ from numpy import pi
 ################################################################################
 
 
+def make_noise_dataset(
+        examples_per_class: int,
+):
+    x1 = np.linspace(-1, 1, examples_per_class // 2)
+    x2 = np.linspace(-1, 1, examples_per_class // 2)
+    x = np.array([(a, b) for a in x1 for b in x2])
+    y = (np.arange(len(x)) % 2).astype(int)
+    y = 2 * y - 1
+
+    # shuffle the data
+    perm = np.random.permutation(len(y))
+    x = x[perm]
+    y = y[perm]
+
+    return x, y
+
+
 def make_two_gaussians_data(
         examples_per_class: int,
         distance_between_means: float
